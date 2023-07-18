@@ -1,0 +1,42 @@
+{
+  "applications": "*",
+  "changelogDate": "20230718002057",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "profile",
+  "fields": [
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Profile",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "id": true,
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "profile",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
+      "useJPADerivedIdentifier": true
+    },
+    {
+      "otherEntityName": "participant",
+      "otherEntityRelationshipName": "profile",
+      "relationshipName": "participant",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "profile",
+      "relationshipName": "message",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "no"
+}
