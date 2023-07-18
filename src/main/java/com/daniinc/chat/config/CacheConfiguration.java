@@ -48,6 +48,14 @@ public class CacheConfiguration {
             createCache(cm, com.daniinc.chat.domain.User.class.getName() + ".authorities");
             createCache(cm, com.daniinc.chat.domain.PersistentToken.class.getName());
             createCache(cm, com.daniinc.chat.domain.User.class.getName() + ".persistentTokens");
+            createCache(cm, com.daniinc.chat.domain.Message.class.getName());
+            createCache(cm, com.daniinc.chat.domain.Message.class.getName() + ".rooms");
+            createCache(cm, com.daniinc.chat.domain.Participant.class.getName());
+            createCache(cm, com.daniinc.chat.domain.Participant.class.getName() + ".rooms");
+            createCache(cm, com.daniinc.chat.domain.Room.class.getName());
+            createCache(cm, com.daniinc.chat.domain.Profile.class.getName());
+            createCache(cm, com.daniinc.chat.domain.Profile.class.getName() + ".participants");
+            createCache(cm, com.daniinc.chat.domain.Profile.class.getName() + ".messages");
             // jhipster-needle-caffeine-add-entry
         };
     }

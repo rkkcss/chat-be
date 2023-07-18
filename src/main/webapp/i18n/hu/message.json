@@ -1,0 +1,27 @@
+{
+  "chatBeApp": {
+    "message": {
+      "home": {
+        "title": "Messages",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Egy új Message létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson Messaget",
+        "notFound": "No Messages found"
+      },
+      "created": "Egy új Message lett létrehozva {{ param }} azonosítóval",
+      "updated": "A Message módosítva lett {{ param }} azonosítóval",
+      "deleted": "A Message törölve lett {{ param }} azonosítóval",
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az Messaget {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "Message"
+      },
+      "id": "ID",
+      "text": "Text",
+      "createdDate": "Created Date",
+      "room": "Room",
+      "profile": "Profile"
+    }
+  }
+}

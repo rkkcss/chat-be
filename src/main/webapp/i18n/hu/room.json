@@ -1,0 +1,27 @@
+{
+  "chatBeApp": {
+    "room": {
+      "home": {
+        "title": "Rooms",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Egy új Room létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson Roomt",
+        "notFound": "No Rooms found"
+      },
+      "created": "Egy új Room lett létrehozva {{ param }} azonosítóval",
+      "updated": "A Room módosítva lett {{ param }} azonosítóval",
+      "deleted": "A Room törölve lett {{ param }} azonosítóval",
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az Roomt {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "Room"
+      },
+      "id": "ID",
+      "name": "Name",
+      "createdDate": "Created Date",
+      "message": "Message",
+      "participant": "Participant"
+    }
+  }
+}

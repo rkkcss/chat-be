@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20230717235859",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "participant",
+  "fields": [],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Participant",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "room",
+      "otherEntityRelationshipName": "participant",
+      "relationshipName": "room",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "profile",
+      "otherEntityRelationshipName": "participant",
+      "relationshipName": "profile",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

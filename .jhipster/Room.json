@@ -1,0 +1,37 @@
+{
+  "applications": "*",
+  "changelogDate": "20230717235900",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "room",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Room",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "room",
+      "relationshipName": "message",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "participant",
+      "otherEntityRelationshipName": "room",
+      "relationshipName": "participant",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

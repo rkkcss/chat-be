@@ -1,0 +1,30 @@
+entity Message {
+	text String
+    createdDate LocalDate
+}
+
+entity Participant {
+
+}
+
+entity Room {
+	name String
+    createdDate LocalDate
+}
+
+entity Profile {
+    phoneNumber String
+}
+
+relationship OneToOne {
+    Profile to User with jpaDerivedIdentifier
+}
+
+
+relationship OneToMany {
+    Profile to Participant
+    Profile to Message
+    Message to Room
+    Participant to Room
+}
+

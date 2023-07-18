@@ -1,0 +1,25 @@
+{
+  "chatBeApp": {
+    "participant": {
+      "home": {
+        "title": "Participants",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Egy új Participant létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson Participantt",
+        "notFound": "No Participants found"
+      },
+      "created": "Egy új Participant lett létrehozva {{ param }} azonosítóval",
+      "updated": "A Participant módosítva lett {{ param }} azonosítóval",
+      "deleted": "A Participant törölve lett {{ param }} azonosítóval",
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az Participantt {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "Participant"
+      },
+      "id": "ID",
+      "room": "Room",
+      "profile": "Profile"
+    }
+  }
+}
