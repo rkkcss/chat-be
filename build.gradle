@@ -196,6 +196,8 @@ dependencies {
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hibernate5"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+    implementation 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:testcontainers"
     implementation "org.springdoc:springdoc-openapi-webmvc-core"
@@ -235,6 +237,8 @@ dependencies {
     implementation "io.dropwizard.metrics:metrics-core"
     liquibaseRuntime sourceSets.main.compileClasspath
     liquibaseRuntime "org.liquibase.ext:liquibase-hibernate5:${liquibaseHibernate5Version}"
+    implementation "com.corundumstudio.socketio:netty-socketio:2.0.3"
+
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
