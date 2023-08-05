@@ -21,15 +21,15 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "message",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
       "otherEntityName": "room",
       "otherEntityRelationshipName": "message",
       "relationshipName": "room",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "profile",
-      "otherEntityRelationshipName": "message",
-      "relationshipName": "profile",
       "relationshipType": "many-to-one"
     }
   ],

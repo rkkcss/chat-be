@@ -24,13 +24,13 @@
       "otherEntityName": "message",
       "otherEntityRelationshipName": "room",
       "relationshipName": "message",
-      "relationshipType": "many-to-one"
+      "relationshipType": "one-to-many"
     },
     {
       "otherEntityName": "participant",
       "otherEntityRelationshipName": "room",
       "relationshipName": "participant",
-      "relationshipType": "many-to-one"
+      "relationshipType": "one-to-many"
     }
   ],
   "service": "no"

@@ -18,8 +18,8 @@
         "title": "Participant"
       },
       "id": "ID",
-      "room": "Room",
-      "profile": "Profile"
+      "user": "User",
+      "room": "Room"
     }
   }
 }

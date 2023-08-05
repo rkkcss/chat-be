@@ -8,16 +8,7 @@
     -->
     <changeSet id="20230717235900-2" author="jhipster">
 
-        <addForeignKeyConstraint baseColumnNames="message_id"
-                                 baseTableName="room"
-                                 constraintName="fk_room__message_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="message"/>
 
-        <addForeignKeyConstraint baseColumnNames="participant_id"
-                                 baseTableName="room"
-                                 constraintName="fk_room__participant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="participant"/>
+
     </changeSet>
 </databaseChangeLog>

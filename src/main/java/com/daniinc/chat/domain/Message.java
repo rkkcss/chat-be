@@ -3,8 +3,6 @@ package com.daniinc.chat.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -31,14 +29,12 @@ public class Message implements Serializable {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    @OneToMany(mappedBy = "message")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "message", "participant" }, allowSetters = true)
-    private Set<Room> rooms = new HashSet<>();
-
     @ManyToOne
-    @JsonIgnoreProperties(value = { "user", "participants", "messages" }, allowSetters = true)
-    private Profile profile;
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = { "participants" }, allowSetters = true)
+    private Room room;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -81,47 +77,29 @@ public class Message implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Set<Room> getRooms() {
-        return this.rooms;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setRooms(Set<Room> rooms) {
-        if (this.rooms != null) {
-            this.rooms.forEach(i -> i.setMessage(null));
-        }
-        if (rooms != null) {
-            rooms.forEach(i -> i.setMessage(this));
-        }
-        this.rooms = rooms;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Message rooms(Set<Room> rooms) {
-        this.setRooms(rooms);
+    public Message user(User user) {
+        this.setUser(user);
         return this;
     }
 
-    public Message addRoom(Room room) {
-        this.rooms.add(room);
-        room.setMessage(this);
-        return this;
+    public Room getRoom() {
+        return this.room;
     }
 
-    public Message removeRoom(Room room) {
-        this.rooms.remove(room);
-        room.setMessage(null);
-        return this;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
-    public Profile getProfile() {
-        return this.profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-
-    public Message profile(Profile profile) {
-        this.setProfile(profile);
+    public Message room(Room room) {
+        this.setRoom(room);
         return this;
     }
 

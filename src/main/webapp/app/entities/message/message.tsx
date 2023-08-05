@@ -58,7 +58,10 @@ export const Message = () => {
                   <Translate contentKey="chatBeApp.message.createdDate">Created Date</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="chatBeApp.message.profile">Profile</Translate>
+                  <Translate contentKey="chatBeApp.message.user">User</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="chatBeApp.message.room">Room</Translate>
                 </th>
                 <th />
               </tr>
@@ -75,7 +78,8 @@ export const Message = () => {
                   <td>
                     {message.createdDate ? <TextFormat type="date" value={message.createdDate} format={APP_LOCAL_DATE_FORMAT} /> : null}
                   </td>
-                  <td>{message.profile ? <Link to={`/profile/${message.profile.id}`}>{message.profile.id}</Link> : ''}</td>
+                  <td>{message.user ? message.user.id : ''}</td>
+                  <td>{message.room ? <Link to={`/room/${message.room.id}`}>{message.room.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/message/${message.id}`} color="info" size="sm" data-cy="entityDetailsButton">

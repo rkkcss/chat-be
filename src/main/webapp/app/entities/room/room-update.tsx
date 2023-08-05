@@ -8,10 +8,6 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IMessage } from 'app/shared/model/message.model';
-import { getEntities as getMessages } from 'app/entities/message/message.reducer';
-import { IParticipant } from 'app/shared/model/participant.model';
-import { getEntities as getParticipants } from 'app/entities/participant/participant.reducer';
 import { IRoom } from 'app/shared/model/room.model';
 import { getEntity, updateEntity, createEntity, reset } from './room.reducer';
 
@@ -23,8 +19,6 @@ export const RoomUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const messages = useAppSelector(state => state.message.entities);
-  const participants = useAppSelector(state => state.participant.entities);
   const roomEntity = useAppSelector(state => state.room.entity);
   const loading = useAppSelector(state => state.room.loading);
   const updating = useAppSelector(state => state.room.updating);
@@ -40,9 +34,6 @@ export const RoomUpdate = () => {
     } else {
       dispatch(getEntity(id));
     }
-
-    dispatch(getMessages({}));
-    dispatch(getParticipants({}));
   }, []);
 
   useEffect(() => {
@@ -55,8 +46,6 @@ export const RoomUpdate = () => {
     const entity = {
       ...roomEntity,
       ...values,
-      message: messages.find(it => it.id.toString() === values.message.toString()),
-      participant: participants.find(it => it.id.toString() === values.participant.toString()),
     };
 
     if (isNew) {
@@ -71,8 +60,6 @@ export const RoomUpdate = () => {
       ? {}
       : {
           ...roomEntity,
-          message: roomEntity?.message?.id,
-          participant: roomEntity?.participant?.id,
         };
 
   return (
@@ -108,32 +95,6 @@ export const RoomUpdate = () => {
                 data-cy="createdDate"
                 type="date"
               />
-              <ValidatedField id="room-message" name="message" data-cy="message" label={translate('chatBeApp.room.message')} type="select">
-                <option value="" key="0" />
-                {messages
-                  ? messages.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="room-participant"
-                name="participant"
-                data-cy="participant"
-                label={translate('chatBeApp.room.participant')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {participants
-                  ? participants.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/room" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

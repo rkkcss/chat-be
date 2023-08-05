@@ -47,9 +47,13 @@ export const MessageDetail = () => {
             {messageEntity.createdDate ? <TextFormat value={messageEntity.createdDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}
           </dd>
           <dt>
-            <Translate contentKey="chatBeApp.message.profile">Profile</Translate>
+            <Translate contentKey="chatBeApp.message.user">User</Translate>
           </dt>
-          <dd>{messageEntity.profile ? messageEntity.profile.id : ''}</dd>
+          <dd>{messageEntity.user ? messageEntity.user.id : ''}</dd>
+          <dt>
+            <Translate contentKey="chatBeApp.message.room">Room</Translate>
+          </dt>
+          <dd>{messageEntity.room ? messageEntity.room.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/message" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

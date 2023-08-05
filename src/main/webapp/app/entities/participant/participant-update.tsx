@@ -8,8 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IProfile } from 'app/shared/model/profile.model';
-import { getEntities as getProfiles } from 'app/entities/profile/profile.reducer';
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
+import { IRoom } from 'app/shared/model/room.model';
+import { getEntities as getRooms } from 'app/entities/room/room.reducer';
 import { IParticipant } from 'app/shared/model/participant.model';
 import { getEntity, updateEntity, createEntity, reset } from './participant.reducer';
 
@@ -21,7 +23,8 @@ export const ParticipantUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const profiles = useAppSelector(state => state.profile.entities);
+  const users = useAppSelector(state => state.userManagement.users);
+  const rooms = useAppSelector(state => state.room.entities);
   const participantEntity = useAppSelector(state => state.participant.entity);
   const loading = useAppSelector(state => state.participant.loading);
   const updating = useAppSelector(state => state.participant.updating);
@@ -38,7 +41,8 @@ export const ParticipantUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getProfiles({}));
+    dispatch(getUsers({}));
+    dispatch(getRooms({}));
   }, []);
 
   useEffect(() => {
@@ -51,7 +55,8 @@ export const ParticipantUpdate = () => {
     const entity = {
       ...participantEntity,
       ...values,
-      profile: profiles.find(it => it.id.toString() === values.profile.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
+      room: rooms.find(it => it.id.toString() === values.room.toString()),
     };
 
     if (isNew) {
@@ -66,7 +71,8 @@ export const ParticipantUpdate = () => {
       ? {}
       : {
           ...participantEntity,
-          profile: participantEntity?.profile?.id,
+          user: participantEntity?.user?.id,
+          room: participantEntity?.room?.id,
         };
 
   return (
@@ -95,15 +101,31 @@ export const ParticipantUpdate = () => {
                 />
               ) : null}
               <ValidatedField
-                id="participant-profile"
-                name="profile"
-                data-cy="profile"
-                label={translate('chatBeApp.participant.profile')}
+                id="participant-user"
+                name="user"
+                data-cy="user"
+                label={translate('chatBeApp.participant.user')}
                 type="select"
               >
                 <option value="" key="0" />
-                {profiles
-                  ? profiles.map(otherEntity => (
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="participant-room"
+                name="room"
+                data-cy="room"
+                label={translate('chatBeApp.participant.room')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {rooms
+                  ? rooms.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

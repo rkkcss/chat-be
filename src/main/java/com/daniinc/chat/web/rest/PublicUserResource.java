@@ -1,5 +1,7 @@
 package com.daniinc.chat.web.rest;
 
+import com.daniinc.chat.domain.User;
+import com.daniinc.chat.repository.UserRepository;
 import com.daniinc.chat.service.UserService;
 import com.daniinc.chat.service.dto.UserDTO;
 import java.util.*;
@@ -28,8 +30,11 @@ public class PublicUserResource {
 
     private final UserService userService;
 
-    public PublicUserResource(UserService userService) {
+    private final UserRepository userRepository;
+
+    public PublicUserResource(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -61,5 +66,15 @@ public class PublicUserResource {
     @GetMapping("/authorities")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
+    }
+
+    @GetMapping("/users/search")
+    public ResponseEntity<List<UserDTO>> searchInPublicUsers(
+        @RequestParam String searchName,
+        @org.springdoc.api.annotations.ParameterObject Pageable pageable
+    ) {
+        Page<UserDTO> users = userService.findUsersByKeyword(searchName, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), users);
+        return new ResponseEntity<>(users.getContent(), headers, HttpStatus.OK);
     }
 }

@@ -20,8 +20,8 @@
       "id": "ID",
       "text": "Text",
       "createdDate": "Created Date",
-      "room": "Room",
-      "profile": "Profile"
+      "user": "User",
+      "room": "Room"
     }
   }
 }

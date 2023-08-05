@@ -22,9 +22,11 @@ relationship OneToOne {
 
 
 relationship OneToMany {
-    Profile to Participant
-    Profile to Message
-    Message to Room
-    Participant to Room
+    Room to Message
+    Room to Participant
 }
 
+relationship ManyToOne {
+    Participant to User
+    Message to User
+}

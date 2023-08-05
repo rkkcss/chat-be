@@ -46,14 +46,6 @@ export const RoomDetail = () => {
           <dd>
             {roomEntity.createdDate ? <TextFormat value={roomEntity.createdDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}
           </dd>
-          <dt>
-            <Translate contentKey="chatBeApp.room.message">Message</Translate>
-          </dt>
-          <dd>{roomEntity.message ? roomEntity.message.id : ''}</dd>
-          <dt>
-            <Translate contentKey="chatBeApp.room.participant">Participant</Translate>
-          </dt>
-          <dd>{roomEntity.participant ? roomEntity.participant.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/room" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

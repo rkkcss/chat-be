@@ -12,15 +12,15 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "participant",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
       "otherEntityName": "room",
       "otherEntityRelationshipName": "participant",
       "relationshipName": "room",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "profile",
-      "otherEntityRelationshipName": "participant",
-      "relationshipName": "profile",
       "relationshipType": "many-to-one"
     }
   ],

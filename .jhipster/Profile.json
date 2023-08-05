@@ -24,18 +24,6 @@
       "relationshipName": "user",
       "relationshipType": "one-to-one",
       "useJPADerivedIdentifier": true
-    },
-    {
-      "otherEntityName": "participant",
-      "otherEntityRelationshipName": "profile",
-      "relationshipName": "participant",
-      "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "message",
-      "otherEntityRelationshipName": "profile",
-      "relationshipName": "message",
-      "relationshipType": "one-to-many"
     }
   ],
   "service": "no"

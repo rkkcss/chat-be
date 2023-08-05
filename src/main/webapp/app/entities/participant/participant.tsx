@@ -52,7 +52,10 @@ export const Participant = () => {
                   <Translate contentKey="chatBeApp.participant.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="chatBeApp.participant.profile">Profile</Translate>
+                  <Translate contentKey="chatBeApp.participant.user">User</Translate>
+                </th>
+                <th>
+                  <Translate contentKey="chatBeApp.participant.room">Room</Translate>
                 </th>
                 <th />
               </tr>
@@ -65,7 +68,8 @@ export const Participant = () => {
                       {participant.id}
                     </Button>
                   </td>
-                  <td>{participant.profile ? <Link to={`/profile/${participant.profile.id}`}>{participant.profile.id}</Link> : ''}</td>
+                  <td>{participant.user ? participant.user.id : ''}</td>
+                  <td>{participant.room ? <Link to={`/room/${participant.room.id}`}>{participant.room.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/participant/${participant.id}`} color="info" size="sm" data-cy="entityDetailsButton">

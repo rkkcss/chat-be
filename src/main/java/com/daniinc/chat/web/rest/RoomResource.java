@@ -1,13 +1,17 @@
 package com.daniinc.chat.web.rest;
 
+import com.daniinc.chat.domain.Participant;
 import com.daniinc.chat.domain.Room;
+import com.daniinc.chat.domain.User;
+import com.daniinc.chat.repository.ParticipantRepository;
 import com.daniinc.chat.repository.RoomRepository;
+import com.daniinc.chat.repository.UserRepository;
+import com.daniinc.chat.service.UserService;
+import com.daniinc.chat.service.dto.CreateRoomDTO;
 import com.daniinc.chat.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,8 +38,22 @@ public class RoomResource {
 
     private final RoomRepository roomRepository;
 
-    public RoomResource(RoomRepository roomRepository) {
+    private final UserService userService;
+
+    private UserRepository userRepository;
+
+    private ParticipantRepository participantRepository;
+
+    public RoomResource(
+        RoomRepository roomRepository,
+        UserService userService,
+        UserRepository userRepository,
+        ParticipantRepository participantRepository
+    ) {
         this.roomRepository = roomRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
+        this.participantRepository = participantRepository;
     }
 
     /**
@@ -46,12 +64,21 @@ public class RoomResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/rooms")
-    public ResponseEntity<Room> createRoom(@RequestBody Room room) throws URISyntaxException {
-        log.debug("REST request to save Room : {}", room);
-        if (room.getId() != null) {
-            throw new BadRequestAlertException("A new room cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        Room result = roomRepository.save(room);
+    public ResponseEntity<Room> createRoom(@RequestBody CreateRoomDTO createRoomDTO) throws URISyntaxException {
+        //room.setParticipants(participants);
+
+        Room result = roomRepository.save(createRoomDTO.getRoom());
+
+        createRoomDTO
+            .getUsers()
+            .stream()
+            .forEach(user -> {
+                Participant participant = new Participant();
+                participant.setUser(userRepository.findById(user.getId()).get());
+                participant.setRoom(result);
+                participantRepository.save(participant);
+            });
+
         return ResponseEntity
             .created(new URI("/api/rooms/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -144,7 +171,10 @@ public class RoomResource {
     @GetMapping("/rooms")
     public List<Room> getAllRooms() {
         log.debug("REST request to get all Rooms");
-        return roomRepository.findAll();
+        //todo:: check if user is exists
+        Optional<User> user = userService.getUserWithAuthorities();
+        List<Room> rooms = roomRepository.getRoomByUser(user.get().getId());
+        return rooms;
     }
 
     /**

@@ -33,9 +33,13 @@ export const ParticipantDetail = () => {
           </dt>
           <dd>{participantEntity.id}</dd>
           <dt>
-            <Translate contentKey="chatBeApp.participant.profile">Profile</Translate>
+            <Translate contentKey="chatBeApp.participant.user">User</Translate>
           </dt>
-          <dd>{participantEntity.profile ? participantEntity.profile.id : ''}</dd>
+          <dd>{participantEntity.user ? participantEntity.user.id : ''}</dd>
+          <dt>
+            <Translate contentKey="chatBeApp.participant.room">Room</Translate>
+          </dt>
+          <dd>{participantEntity.room ? participantEntity.room.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/participant" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

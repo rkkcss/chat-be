@@ -6,8 +6,8 @@ export interface IRoom {
   id?: number;
   name?: string | null;
   createdDate?: string | null;
-  message?: IMessage | null;
-  participant?: IParticipant | null;
+  messages?: IMessage[] | null;
+  participants?: IParticipant[] | null;
 }
 
 export const defaultValue: Readonly<IRoom> = {};

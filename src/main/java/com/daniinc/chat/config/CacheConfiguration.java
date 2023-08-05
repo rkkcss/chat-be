@@ -56,6 +56,8 @@ public class CacheConfiguration {
             createCache(cm, com.daniinc.chat.domain.Profile.class.getName());
             createCache(cm, com.daniinc.chat.domain.Profile.class.getName() + ".participants");
             createCache(cm, com.daniinc.chat.domain.Profile.class.getName() + ".messages");
+            createCache(cm, com.daniinc.chat.domain.Room.class.getName() + ".messages");
+            createCache(cm, com.daniinc.chat.domain.Room.class.getName() + ".participants");
             // jhipster-needle-caffeine-add-entry
         };
     }

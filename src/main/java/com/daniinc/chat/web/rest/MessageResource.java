@@ -2,6 +2,8 @@ package com.daniinc.chat.web.rest;
 
 import com.daniinc.chat.domain.Message;
 import com.daniinc.chat.repository.MessageRepository;
+import com.daniinc.chat.repository.RoomRepository;
+import com.daniinc.chat.service.UserService;
 import com.daniinc.chat.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -34,8 +36,19 @@ public class MessageResource {
 
     private final MessageRepository messageRepository;
 
-    public MessageResource(MessageRepository messageRepository) {
+    private final RoomRepository roomRepository;
+
+    private final UserService userService;
+
+    public MessageResource(MessageRepository messageRepository, RoomRepository roomRepository, UserService userService) {
         this.messageRepository = messageRepository;
+        this.roomRepository = roomRepository;
+        this.userService = userService;
+    }
+
+    @GetMapping("/messages/room/{roomId}")
+    public List<Message> getMessagesByRoomId(@PathVariable(value = "roomId") Long roomId) {
+        return messageRepository.getMessagesByRoomId(roomId);
     }
 
     /**
@@ -45,12 +58,17 @@ public class MessageResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new message, or with status {@code 400 (Bad Request)} if the message has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/messages")
-    public ResponseEntity<Message> createMessage(@RequestBody Message message) throws URISyntaxException {
+    @PostMapping("/messages/{roomId}")
+    public ResponseEntity<Message> createMessage(@RequestBody Message message, @PathVariable(value = "roomId") long roomId)
+        throws URISyntaxException {
         log.debug("REST request to save Message : {}", message);
         if (message.getId() != null) {
             throw new BadRequestAlertException("A new message cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        //TODO: clear this, because it's not too nice...
+        message.setRoom(roomRepository.findById(roomId).get());
+        message.setUser(userService.getUserWithAuthorities().get());
         Message result = messageRepository.save(message);
         return ResponseEntity
             .created(new URI("/api/messages/" + result.getId()))

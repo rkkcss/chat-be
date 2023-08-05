@@ -19,9 +19,7 @@
       },
       "id": "ID",
       "phoneNumber": "Phone Number",
-      "user": "User",
-      "participant": "Participant",
-      "message": "Message"
+      "user": "User"
     }
   }
 }
