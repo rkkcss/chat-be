@@ -17,7 +17,7 @@
             <column name="text" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="created_date" type="date">
+            <column name="created_date" type="timestamp with time zone">
                 <constraints nullable="true" />
             </column>
             <column name="user_id" type="bigint">

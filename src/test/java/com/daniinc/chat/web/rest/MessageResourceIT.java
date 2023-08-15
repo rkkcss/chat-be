@@ -10,6 +10,7 @@ import com.daniinc.chat.IntegrationTest;
 import com.daniinc.chat.domain.Message;
 import com.daniinc.chat.repository.MessageRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
@@ -35,8 +36,8 @@ class MessageResourceIT {
     private static final String DEFAULT_TEXT = "AAAAAAAAAA";
     private static final String UPDATED_TEXT = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDateTime DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L).atStartOfDay();
+    private static final LocalDateTime UPDATED_CREATED_DATE = LocalDateTime.now(ZoneId.systemDefault());
 
     private static final String ENTITY_API_URL = "/api/messages";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";

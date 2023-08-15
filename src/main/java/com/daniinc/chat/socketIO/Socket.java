@@ -26,6 +26,26 @@ public class Socket {
         server.addEventListener("getUserId", Long.class, getUserId());
         server.addEventListener("joinRoom", SocketMessage.class, userJoinRoom());
         server.addEventListener("groupMessageToServer", SocketMessage.class, getGroupMessageFromClient());
+        server.addEventListener("userStartTypingToServer", SocketMessage.class, userStartTyping());
+        server.addEventListener("userStopTypingToServer", SocketMessage.class, userStopTyping());
+    }
+
+    //detect if user start typing
+    private DataListener<SocketMessage> userStartTyping() {
+        return (client, data, ackSender) -> {
+            log.info("Started typing user [{}] in room [{}]", data.getUser().getId(), data.getRoomId());
+            BroadcastOperations roomOperations = server.getRoomOperations(data.getRoomId());
+            roomOperations.sendEvent("userStartTypingToClient", data);
+        };
+    }
+
+    //detect if user stop typing
+    private DataListener<SocketMessage> userStopTyping() {
+        return (client, data, ackSender) -> {
+            log.info("Stopped typing user [{}] in room [{}]", data.getUser().getId(), data.getRoomId());
+            BroadcastOperations roomOperations = server.getRoomOperations(data.getRoomId());
+            roomOperations.sendEvent("userStopTypingToClient", data);
+        };
     }
 
     //get message from client and send back to the group
@@ -51,10 +71,12 @@ public class Socket {
             (client, userId, ackSender) -> {
                 userList.put(userId, client.getSessionId().toString());
                 log.info("Connect: Userlist: [{}]", userList.toString());
+                client.getNamespace().getBroadcastOperations().sendEvent("getActiveUsers", userList);
             }
         );
     }
 
+    //Connection and disconnection functionalities
     private ConnectListener onConnected() {
         return client -> {
             log.info("Socket ID[{}]  Connected to socket", client.getSessionId().toString());
@@ -63,9 +85,13 @@ public class Socket {
 
     private DisconnectListener onDisconnected() {
         return client -> {
-            userList.entrySet().removeIf(entry -> client.getSessionId().toString().equals(entry.getValue()));
-            log.info("Disconnected ID[{}]", client.getSessionId().toString());
-            log.info("UserList: [{}]", userList.toString());
+            String sessionId = client.getSessionId().toString();
+            if (userList.containsValue(sessionId)) {
+                userList.entrySet().removeIf(entry -> entry.getValue().equals(sessionId));
+                log.info("Disconnected ID[{}]", sessionId);
+                log.info("UserList: [{}]", userList.toString());
+                client.getNamespace().getBroadcastOperations().sendEvent("getActiveUsers", userList);
+            }
         };
     }
 }

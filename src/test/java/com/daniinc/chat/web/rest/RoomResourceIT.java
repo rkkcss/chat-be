@@ -10,6 +10,7 @@ import com.daniinc.chat.IntegrationTest;
 import com.daniinc.chat.domain.Room;
 import com.daniinc.chat.repository.RoomRepository;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Random;
@@ -35,8 +36,8 @@ class RoomResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final LocalDate DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDateTime DEFAULT_CREATED_DATE = LocalDate.ofEpochDay(0L).atStartOfDay();
+    private static final LocalDateTime UPDATED_CREATED_DATE = LocalDate.now(ZoneId.systemDefault()).atStartOfDay();
 
     private static final String ENTITY_API_URL = "/api/rooms";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -62,7 +63,8 @@ class RoomResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Room createEntity(EntityManager em) {
-        Room room = new Room().name(DEFAULT_NAME).createdDate(DEFAULT_CREATED_DATE);
+        Room room = new Room();
+        //.name(DEFAULT_NAME).createdDate(DEFAULT_CREATED_DATE);
         return room;
     }
 
@@ -73,7 +75,8 @@ class RoomResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Room createUpdatedEntity(EntityManager em) {
-        Room room = new Room().name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
+        Room room = new Room();
+        //.name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
         return room;
     }
 
@@ -172,7 +175,7 @@ class RoomResourceIT {
         Room updatedRoom = roomRepository.findById(room.getId()).get();
         // Disconnect from session so that the updates on updatedRoom are not directly saved in db
         em.detach(updatedRoom);
-        updatedRoom.name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
+        //updatedRoom.name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
 
         restRoomMockMvc
             .perform(
@@ -263,7 +266,7 @@ class RoomResourceIT {
         Room partialUpdatedRoom = new Room();
         partialUpdatedRoom.setId(room.getId());
 
-        partialUpdatedRoom.createdDate(UPDATED_CREATED_DATE);
+        //partialUpdatedRoom.createdDate(UPDATED_CREATED_DATE);
 
         restRoomMockMvc
             .perform(
@@ -294,7 +297,7 @@ class RoomResourceIT {
         Room partialUpdatedRoom = new Room();
         partialUpdatedRoom.setId(room.getId());
 
-        partialUpdatedRoom.name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
+        //partialUpdatedRoom.name(UPDATED_NAME).createdDate(UPDATED_CREATED_DATE);
 
         restRoomMockMvc
             .perform(
