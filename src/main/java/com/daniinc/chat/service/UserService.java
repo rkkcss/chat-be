@@ -350,6 +350,11 @@ public class UserService {
     }
 
     public Page<UserDTO> findUsersByKeyword(String searchName, Pageable pageable) {
-        return userRepository.findByKeyword(searchName, pageable).map(UserDTO::new);
+        //TODO: check is it fine or not.
+        Optional<User> user = getUserWithAuthorities();
+        if (user.isPresent()) {
+            return userRepository.findByKeyword(searchName, user.get().getId(), pageable).map(UserDTO::new);
+        }
+        throw new RuntimeException("User not found!");
     }
 }

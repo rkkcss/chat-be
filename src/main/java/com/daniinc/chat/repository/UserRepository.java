@@ -38,9 +38,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(
         value = "SELECT * FROM jhi_user " +
-        "WHERE UPPER(jhi_user.first_name) LIKE UPPER(concat('%', :keyword, '%')) " +
-        "OR UPPER(jhi_user.last_name) LIKE UPPER(concat('%', :keyword, '%'))",
+        "WHERE (UPPER(jhi_user.first_name) LIKE UPPER(concat('%', :keyword, '%')) OR UPPER(jhi_user.last_name) LIKE UPPER(concat('%', :keyword, '%'))) " +
+        "AND jhi_user.id != :userId",
         nativeQuery = true
     )
-    Page<User> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
+    Page<User> findByKeyword(@Param("keyword") String keyword, Long userId, Pageable pageable);
 }

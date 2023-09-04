@@ -12,9 +12,11 @@ import com.daniinc.chat.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.*;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -65,13 +67,25 @@ public class RoomResource {
      */
     @PostMapping("/rooms")
     public ResponseEntity<Room> createRoom(@RequestBody CreateRoomDTO createRoomDTO) throws URISyntaxException {
-        //room.setParticipants(participants);
+        //collect user ids from payload
+        List<Long> userIds = createRoomDTO.getUsers().stream().map(User::getId).collect(Collectors.toList());
 
+        //logged in user
+        Optional<User> loggedInUser = userService.getUserWithAuthorities();
+
+        //add userId to the list
+        userIds.add(loggedInUser.get().getId());
+
+        Optional<Room> room = roomRepository.findRoomsByUserIds(userIds, userIds.size());
+
+        if (room.isPresent()) {
+            return new ResponseEntity<>(room.get(), HttpStatus.OK);
+        }
         Room result = roomRepository.save(createRoomDTO.getRoom());
 
+        createRoomDTO.getUsers().add(loggedInUser.get());
         createRoomDTO
             .getUsers()
-            .stream()
             .forEach(user -> {
                 Participant participant = new Participant();
                 participant.setUser(userRepository.findById(user.getId()).get());
