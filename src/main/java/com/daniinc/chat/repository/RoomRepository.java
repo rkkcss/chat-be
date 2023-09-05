@@ -25,8 +25,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
         "LEFT JOIN Participant p ON r.id = p.room_id " +
         "WHERE p.user_id IN (:userIds) " +
         "GROUP BY r.id " +
-        "HAVING COUNT(DISTINCT p.user_id) = userCount " +
-        "AND COUNT(DISTINCT p.user_id) = (SELECT COUNT(*) FROM Participant p2 WHERE p2.room_id = r.id);",
+        "HAVING COUNT(DISTINCT p.user_id) = :userCount " +
+        "AND COUNT(DISTINCT p.user_id) = (SELECT COUNT(*) FROM Participant p2 WHERE p2.room_id = r.id)",
         nativeQuery = true
     )
     Optional<Room> findRoomsByUserIds(@Param("userIds") List<Long> userIds, @Param("userCount") Integer userCount);
