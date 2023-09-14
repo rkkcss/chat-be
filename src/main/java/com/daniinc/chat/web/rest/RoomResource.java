@@ -79,7 +79,7 @@ public class RoomResource {
         Optional<Room> room = roomRepository.findRoomsByUserIds(userIds, userIds.size());
 
         if (room.isPresent()) {
-            return new ResponseEntity<>(room.get(), HttpStatus.OK);
+            return new ResponseEntity<>(room.get(), HttpStatus.FOUND);
         }
         Room result = roomRepository.save(createRoomDTO.getRoom());
 

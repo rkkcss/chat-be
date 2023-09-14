@@ -2,6 +2,8 @@ package com.daniinc.chat.repository;
 
 import com.daniinc.chat.domain.Message;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +17,5 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     List<Message> findByUserIsCurrentUser();
 
     @Query(value = "select * from message where message.room_id = ?1", nativeQuery = true)
-    List<Message> getMessagesByRoomId(Long roomId);
+    Page<List<Message>> getMessagesByRoomId(Long roomId, Pageable pageable);
 }
