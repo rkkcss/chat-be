@@ -1,6 +1,7 @@
 package com.daniinc.chat.config;
 
 import com.corundumstudio.socketio.SocketIOServer;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,5 +21,10 @@ public class SocketIOConfig {
         config.setHostname(host);
         config.setPort(port);
         return new SocketIOServer(config);
+    }
+
+    @PreDestroy
+    public void stopSocketIOServer() {
+        this.socketIOServer().stop();
     }
 }

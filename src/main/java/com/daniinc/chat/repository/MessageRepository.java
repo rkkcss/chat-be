@@ -16,6 +16,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Query("select message from Message message where message.user.login = ?#{principal.username}")
     List<Message> findByUserIsCurrentUser();
 
-    @Query(value = "select * from message where message.room_id = ?1", nativeQuery = true)
+    @Query(value = "select * from message where message.room_id = ?1 order by message.created_date desc", nativeQuery = true)
     Page<List<Message>> getMessagesByRoomId(Long roomId, Pageable pageable);
 }

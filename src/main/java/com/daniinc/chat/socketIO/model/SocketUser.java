@@ -1,4 +1,4 @@
-package com.daniinc.chat.socketIO;
+package com.daniinc.chat.socketIO.model;
 
 import lombok.*;
 
@@ -9,4 +9,6 @@ import lombok.*;
 public class SocketUser {
 
     private long id;
+    private String firstName;
+    private String lastName;
 }

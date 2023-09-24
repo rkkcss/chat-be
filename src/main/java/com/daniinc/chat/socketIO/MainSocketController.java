@@ -5,20 +5,22 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
+import com.daniinc.chat.socketIO.model.SocketMessage;
+import com.daniinc.chat.socketIO.model.SocketUser;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class Socket {
+public class MainSocketController {
 
     private SocketUser socketUser;
     private final SocketIOServer server;
 
     private Map<Long, String> userList = new HashMap<>();
 
-    public Socket(SocketIOServer server) {
+    public MainSocketController(SocketIOServer server) {
         //here you need to add the listeners
         this.server = server;
         server.addConnectListener(onConnected());
