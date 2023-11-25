@@ -1,6 +1,7 @@
 package com.daniinc.chat.web.rest;
 
 import com.daniinc.chat.domain.Message;
+import com.daniinc.chat.domain.Room;
 import com.daniinc.chat.repository.MessageRepository;
 import com.daniinc.chat.repository.RoomRepository;
 import com.daniinc.chat.service.UserService;
@@ -72,7 +73,9 @@ public class MessageResource {
         }
 
         //TODO: clear this, because it's not too nice...
-        message.setRoom(roomRepository.findById(roomId).get());
+        Room room = roomRepository.findById(roomId).get();
+        room.setLastMessage(message);
+        message.setRoom(room);
         message.setUser(userService.getUserWithAuthorities().get());
         Message result = messageRepository.save(message);
         return ResponseEntity

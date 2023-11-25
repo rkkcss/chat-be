@@ -11,6 +11,7 @@
         "participant": "Participant",
         "room": "Room",
         "profile": "Profile",
+        "messageReaction": "Message Reaction",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -57,6 +57,9 @@ export const Room = () => {
                 <th>
                   <Translate contentKey="chatBeApp.room.createdDate">Created Date</Translate>
                 </th>
+                <th>
+                  <Translate contentKey="chatBeApp.room.lastMessage">Last Message</Translate>
+                </th>
                 <th />
               </tr>
             </thead>
@@ -70,6 +73,7 @@ export const Room = () => {
                   </td>
                   <td>{room.name}</td>
                   <td>{room.createdDate ? <TextFormat type="date" value={room.createdDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
+                  <td>{room.lastMessage ? <Link to={`/message/${room.lastMessage.id}`}>{room.lastMessage.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/room/${room.id}`} color="info" size="sm" data-cy="entityDetailsButton">

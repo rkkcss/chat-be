@@ -20,6 +20,7 @@
       "id": "ID",
       "text": "Text",
       "createdDate": "Created Date",
+      "messageReaction": "Message Reaction",
       "user": "User",
       "room": "Room"
     }

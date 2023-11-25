@@ -1,12 +1,10 @@
 package com.daniinc.chat.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,6 +41,11 @@ public class Message implements Serializable {
     @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "message")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "user", "message" }, allowSetters = true)
+    private Set<MessageReaction> messageReactions = new HashSet<>();
 
     @ManyToOne
     private User user;

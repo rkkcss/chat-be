@@ -18,15 +18,21 @@ entity Profile {
 
 relationship OneToOne {
     Profile to User with jpaDerivedIdentifier
+    Room{lastMessage} to Message
 }
 
+entity MessageReaction {
+    text String
+}
 
 relationship OneToMany {
     Room to Message
     Room to Participant
+    Message to MessageReaction
 }
 
 relationship ManyToOne {
     Participant to User
     Message to User
+    MessageReaction to User
 }

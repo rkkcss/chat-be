@@ -22,6 +22,12 @@
   "relationships": [
     {
       "otherEntityName": "message",
+      "ownerSide": true,
+      "relationshipName": "lastMessage",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "message",
       "otherEntityRelationshipName": "room",
       "relationshipName": "message",
       "relationshipType": "one-to-many"

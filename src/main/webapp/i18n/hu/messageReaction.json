@@ -1,0 +1,26 @@
+{
+  "chatBeApp": {
+    "messageReaction": {
+      "home": {
+        "title": "MessageReactions",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Egy új Message Reaction létrehozása",
+        "createOrEditLabel": "Hozzon létre, vagy módosítson Message Reactiont",
+        "notFound": "No Message Reactions found"
+      },
+      "created": "Egy új Message Reaction lett létrehozva {{ param }} azonosítóval",
+      "updated": "A Message Reaction módosítva lett {{ param }} azonosítóval",
+      "deleted": "A Message Reaction törölve lett {{ param }} azonosítóval",
+      "delete": {
+        "question": "Biztos benne, hogy törölni szeretné az Message Reactiont {{ id }} azonosítóval?"
+      },
+      "detail": {
+        "title": "Message Reaction"
+      },
+      "id": "ID",
+      "text": "Text",
+      "user": "User",
+      "message": "Message"
+    }
+  }
+}

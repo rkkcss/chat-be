@@ -8,12 +8,14 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { IUser } from 'app/shared/model/user.model';
+import { getUsers } from 'app/modules/administration/user-management/user-management.reducer';
 import { IMessage } from 'app/shared/model/message.model';
 import { getEntities as getMessages } from 'app/entities/message/message.reducer';
-import { IRoom } from 'app/shared/model/room.model';
-import { getEntity, updateEntity, createEntity, reset } from './room.reducer';
+import { IMessageReaction } from 'app/shared/model/message-reaction.model';
+import { getEntity, updateEntity, createEntity, reset } from './message-reaction.reducer';
 
-export const RoomUpdate = () => {
+export const MessageReactionUpdate = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -21,14 +23,15 @@ export const RoomUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
+  const users = useAppSelector(state => state.userManagement.users);
   const messages = useAppSelector(state => state.message.entities);
-  const roomEntity = useAppSelector(state => state.room.entity);
-  const loading = useAppSelector(state => state.room.loading);
-  const updating = useAppSelector(state => state.room.updating);
-  const updateSuccess = useAppSelector(state => state.room.updateSuccess);
+  const messageReactionEntity = useAppSelector(state => state.messageReaction.entity);
+  const loading = useAppSelector(state => state.messageReaction.loading);
+  const updating = useAppSelector(state => state.messageReaction.updating);
+  const updateSuccess = useAppSelector(state => state.messageReaction.updateSuccess);
 
   const handleClose = () => {
-    navigate('/room');
+    navigate('/message-reaction');
   };
 
   useEffect(() => {
@@ -38,6 +41,7 @@ export const RoomUpdate = () => {
       dispatch(getEntity(id));
     }
 
+    dispatch(getUsers({}));
     dispatch(getMessages({}));
   }, []);
 
@@ -49,9 +53,10 @@ export const RoomUpdate = () => {
 
   const saveEntity = values => {
     const entity = {
-      ...roomEntity,
+      ...messageReactionEntity,
       ...values,
-      lastMessage: messages.find(it => it.id.toString() === values.lastMessage.toString()),
+      user: users.find(it => it.id.toString() === values.user.toString()),
+      message: messages.find(it => it.id.toString() === values.message.toString()),
     };
 
     if (isNew) {
@@ -65,16 +70,17 @@ export const RoomUpdate = () => {
     isNew
       ? {}
       : {
-          ...roomEntity,
-          lastMessage: roomEntity?.lastMessage?.id,
+          ...messageReactionEntity,
+          user: messageReactionEntity?.user?.id,
+          message: messageReactionEntity?.message?.id,
         };
 
   return (
     <div>
       <Row className="justify-content-center">
         <Col md="8">
-          <h2 id="chatBeApp.room.home.createOrEditLabel" data-cy="RoomCreateUpdateHeading">
-            <Translate contentKey="chatBeApp.room.home.createOrEditLabel">Create or edit a Room</Translate>
+          <h2 id="chatBeApp.messageReaction.home.createOrEditLabel" data-cy="MessageReactionCreateUpdateHeading">
+            <Translate contentKey="chatBeApp.messageReaction.home.createOrEditLabel">Create or edit a MessageReaction</Translate>
           </h2>
         </Col>
       </Row>
@@ -89,24 +95,39 @@ export const RoomUpdate = () => {
                   name="id"
                   required
                   readOnly
-                  id="room-id"
+                  id="message-reaction-id"
                   label={translate('global.field.id')}
                   validate={{ required: true }}
                 />
               ) : null}
-              <ValidatedField label={translate('chatBeApp.room.name')} id="room-name" name="name" data-cy="name" type="text" />
               <ValidatedField
-                label={translate('chatBeApp.room.createdDate')}
-                id="room-createdDate"
-                name="createdDate"
-                data-cy="createdDate"
-                type="date"
+                label={translate('chatBeApp.messageReaction.text')}
+                id="message-reaction-text"
+                name="text"
+                data-cy="text"
+                type="text"
               />
               <ValidatedField
-                id="room-lastMessage"
-                name="lastMessage"
-                data-cy="lastMessage"
-                label={translate('chatBeApp.room.lastMessage')}
+                id="message-reaction-user"
+                name="user"
+                data-cy="user"
+                label={translate('chatBeApp.messageReaction.user')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {users
+                  ? users.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                id="message-reaction-message"
+                name="message"
+                data-cy="message"
+                label={translate('chatBeApp.messageReaction.message')}
                 type="select"
               >
                 <option value="" key="0" />
@@ -118,7 +139,7 @@ export const RoomUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/room" replace color="info">
+              <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/message-reaction" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
                 <span className="d-none d-md-inline">
@@ -139,4 +160,4 @@ export const RoomUpdate = () => {
   );
 };
 
-export default RoomUpdate;
+export default MessageReactionUpdate;

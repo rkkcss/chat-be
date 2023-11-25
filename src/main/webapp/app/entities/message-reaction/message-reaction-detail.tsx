@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { getEntity } from './room.reducer';
+import { getEntity } from './message-reaction.reducer';
 
-export const RoomDetail = () => {
+export const MessageReactionDetail = () => {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<'id'>();
@@ -18,12 +18,12 @@ export const RoomDetail = () => {
     dispatch(getEntity(id));
   }, []);
 
-  const roomEntity = useAppSelector(state => state.room.entity);
+  const messageReactionEntity = useAppSelector(state => state.messageReaction.entity);
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="roomDetailsHeading">
-          <Translate contentKey="chatBeApp.room.detail.title">Room</Translate>
+        <h2 data-cy="messageReactionDetailsHeading">
+          <Translate contentKey="chatBeApp.messageReaction.detail.title">MessageReaction</Translate>
         </h2>
         <dl className="jh-entity-details">
           <dt>
@@ -31,34 +31,30 @@ export const RoomDetail = () => {
               <Translate contentKey="global.field.id">ID</Translate>
             </span>
           </dt>
-          <dd>{roomEntity.id}</dd>
+          <dd>{messageReactionEntity.id}</dd>
           <dt>
-            <span id="name">
-              <Translate contentKey="chatBeApp.room.name">Name</Translate>
+            <span id="text">
+              <Translate contentKey="chatBeApp.messageReaction.text">Text</Translate>
             </span>
           </dt>
-          <dd>{roomEntity.name}</dd>
+          <dd>{messageReactionEntity.text}</dd>
           <dt>
-            <span id="createdDate">
-              <Translate contentKey="chatBeApp.room.createdDate">Created Date</Translate>
-            </span>
+            <Translate contentKey="chatBeApp.messageReaction.user">User</Translate>
           </dt>
-          <dd>
-            {roomEntity.createdDate ? <TextFormat value={roomEntity.createdDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}
-          </dd>
+          <dd>{messageReactionEntity.user ? messageReactionEntity.user.id : ''}</dd>
           <dt>
-            <Translate contentKey="chatBeApp.room.lastMessage">Last Message</Translate>
+            <Translate contentKey="chatBeApp.messageReaction.message">Message</Translate>
           </dt>
-          <dd>{roomEntity.lastMessage ? roomEntity.lastMessage.id : ''}</dd>
+          <dd>{messageReactionEntity.message ? messageReactionEntity.message.id : ''}</dd>
         </dl>
-        <Button tag={Link} to="/room" replace color="info" data-cy="entityDetailsBackButton">
+        <Button tag={Link} to="/message-reaction" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.back">Back</Translate>
           </span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/room/${roomEntity.id}/edit`} replace color="primary">
+        <Button tag={Link} to={`/message-reaction/${messageReactionEntity.id}/edit`} replace color="primary">
           <FontAwesomeIcon icon="pencil-alt" />{' '}
           <span className="d-none d-md-inline">
             <Translate contentKey="entity.action.edit">Edit</Translate>
@@ -69,4 +65,4 @@ export const RoomDetail = () => {
   );
 };
 
-export default RoomDetail;
+export default MessageReactionDetail;

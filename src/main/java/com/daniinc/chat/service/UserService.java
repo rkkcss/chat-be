@@ -127,7 +127,8 @@ public class UserService {
         if (userDTO.getEmail() != null) {
             newUser.setEmail(userDTO.getEmail().toLowerCase());
         }
-        newUser.setImageUrl(userDTO.getImageUrl());
+        //newUser.setImageUrl(userDTO.getImageUrl());
+        newUser.setImageUrl("https://res.cloudinary.com/dmvkh8wxf/image/upload/v1698172337/no-image_yl5gt0.svg");
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
         newUser.setActivated(false);

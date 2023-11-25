@@ -6,6 +6,7 @@ export interface IRoom {
   id?: number;
   name?: string | null;
   createdDate?: string | null;
+  lastMessage?: IMessage | null;
   messages?: IMessage[] | null;
   participants?: IParticipant[] | null;
 }

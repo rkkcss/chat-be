@@ -39,6 +39,11 @@ public class Room implements Serializable {
     @Column(name = "created_date")
     private LocalDate createdDate;
 
+    @JsonIgnoreProperties(value = { "messageReactions", "user", "room" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Message lastMessage;
+
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = { "user", "room" }, allowSetters = true)
     private Set<Message> messages = new HashSet<>();

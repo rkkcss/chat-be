@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20231006222810",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "message_reaction",
+  "fields": [
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MessageReaction",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "messageReaction",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "message",
+      "otherEntityRelationshipName": "messageReaction",
+      "relationshipName": "message",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

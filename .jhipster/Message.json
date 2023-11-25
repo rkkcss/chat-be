@@ -21,6 +21,12 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "messageReaction",
+      "otherEntityRelationshipName": "message",
+      "relationshipName": "messageReaction",
+      "relationshipType": "one-to-many"
+    },
+    {
       "otherEntityName": "user",
       "otherEntityRelationshipName": "message",
       "relationshipName": "user",

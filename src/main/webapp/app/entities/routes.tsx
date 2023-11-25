@@ -7,6 +7,7 @@ import Message from './message';
 import Participant from './participant';
 import Room from './room';
 import Profile from './profile';
+import MessageReaction from './message-reaction';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -18,6 +19,7 @@ export default () => {
         <Route path="participant/*" element={<Participant />} />
         <Route path="room/*" element={<Room />} />
         <Route path="profile/*" element={<Profile />} />
+        <Route path="message-reaction/*" element={<MessageReaction />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>
