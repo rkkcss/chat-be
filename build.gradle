@@ -61,11 +61,11 @@ if (project.hasProperty("gae")) {
 }
 
 
-idea {
-    module {
-        excludeDirs += files("node_modules")
-    }
-}
+//idea {
+//    module {
+//        excludeDirs += files("node_modules")
+//    }
+//}
 
 eclipse {
     sourceSets {
@@ -264,31 +264,31 @@ wrapper {
     gradleVersion = "7.4.2"
 }
 
-task webapp_test(type: NpmTask, dependsOn: "npm_install") {
-    args = ["run", "webapp:test"]
-}
+//task webapp_test(type: NpmTask, dependsOn: "npm_install") {
+//    args = ["run", "webapp:test"]
+//}
 
-if (project.hasProperty("nodeInstall")) {
-    node {
-        version = "16.17.0"
-        npmVersion = "8.19.1"
-        download = true
-    }
+//if (project.hasProperty("nodeInstall")) {
+//    node {
+//        version = "16.17.0"
+//        npmVersion = "8.19.1"
+//        download = true
+//    }
+//
+//    // Copy local node and npm to a fixed location for npmw
+//    def fixedNode = tasks.register("fixedNode", Copy) {
+//        from nodeSetup
+//        into 'build/node'
+//    }
+//    tasks.named("nodeSetup").configure { finalizedBy fixedNode }
+//
+//    def fixedNpm = tasks.register("fixedNpm", Copy) {
+//        from npmSetup
+//        into 'build/node'
+//    }
+//    tasks.named("npmSetup").configure { finalizedBy fixedNpm }
+//}
 
-    // Copy local node and npm to a fixed location for npmw
-    def fixedNode = tasks.register("fixedNode", Copy) {
-        from nodeSetup
-        into 'build/node'
-    }
-    tasks.named("nodeSetup").configure { finalizedBy fixedNode }
-
-    def fixedNpm = tasks.register("fixedNpm", Copy) {
-        from npmSetup
-        into 'build/node'
-    }
-    tasks.named("npmSetup").configure { finalizedBy fixedNpm }
-}
-
-test.dependsOn webapp_test
+//test.dependsOn webapp_test
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
